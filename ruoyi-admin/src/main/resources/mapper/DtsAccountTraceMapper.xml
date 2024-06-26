@@ -205,22 +205,60 @@
             </if>
         </trim>
     </insert>
-
     <select id="selectByExample" resultMap="BaseResultMap">
-        SELECT id,
-               trace_sn,
-               user_id,
-               type,
-               amount,
-               total_amount,
-               add_time,
-               mobile,
-               sms_code,
-               status,
-               trace_msg,
-               update_time
-        FROM dts_account_trace
-        WHERE id = #{id}
+        SELECT
+        id,
+        trace_sn,
+        user_id,
+        type,
+        amount,
+        total_amount,
+        add_time,
+        mobile,
+        sms_code,
+        status,
+        trace_msg,
+        update_time
+        FROM
+        dts_account_trace
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="traceSn != null and traceSn != ''">
+                and trace_sn = #{traceSn}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+            <if test="amount != null">
+                and amount = #{amount}
+            </if>
+            <if test="totalAmount != null">
+                and total_amount = #{totalAmount}
+            </if>
+            <if test="addTime != null">
+                and add_time = #{addTime}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                and mobile = #{mobile}
+            </if>
+            <if test="smsCode != null and smsCode != ''">
+                and sms_code = #{smsCode}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="traceMsg != null and traceMsg != ''">
+                and trace_msg = #{traceMsg}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
     </select>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

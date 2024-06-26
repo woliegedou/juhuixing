@@ -1,5 +1,7 @@
 package com.ruoyi.program.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ruoyi.program.entity.DTO.DtsAccountTraceDto;
 import com.ruoyi.program.entity.DtsAccountTrace;
 import com.ruoyi.program.mapper.DtsAccountTraceMapper;
@@ -9,14 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Api(tags = {"账户流水"})
 @RestController
@@ -180,5 +180,47 @@ public class DtsAccountTraceController {
             logger.error("删除账户流水失败：服务器内部错误", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("删除账户流水失败，服务器内部错误");
         }
+    }
+
+    /**
+     * 分页查询账户流水信息。
+     * 通过DtsAccountTrace对象筛选条件，结合分页参数pageNum和pageSize，从数据库中查询账户流水信息。
+     * 返回包含查询结果的分页信息、查询状态和消息。
+     *
+     * @param dtsAccountTrace 账户流水实体对象，用于传递查询条件。
+     * @param pageNum         请求的页码，默认为1。
+     * @param pageSize        每页显示的记录数，默认为10。
+     * @return 返回一个Map对象，包含查询结果的分页信息、查询状态和消息。
+     */
+    @ApiOperation("分页查询账户流水")
+    @GetMapping("/selectDtsAccountTraceByPage")
+    public Map<String, Object> selectDtsAccountTraceByPage(
+            DtsAccountTrace dtsAccountTrace,
+            @RequestParam(defaultValue = "1") Integer pageNum,
+            @RequestParam(defaultValue = "10") Integer pageSize) {
+        // 初始化返回数据的Map
+        Map<String, Object> map = new HashMap<>();
+        try {
+            // 初始化分页插件
+            PageHelper.startPage(pageNum, pageSize);
+            // 根据条件查询账户流水信息
+            List<DtsAccountTrace> list = dtsAccountTraceMapper.selectByExample(dtsAccountTrace);
+            // 构建分页信息
+            PageInfo<DtsAccountTrace> pageInfo = new PageInfo<>(list);
+            // 将分页信息和查询结果放入返回的Map中
+            map.put("data", pageInfo);
+            map.put("list", list);
+            // 设置查询状态和消息
+            map.put("message", "查询成功");
+            map.put("status", "success");
+        } catch (Exception e) {
+            // 记录查询异常信息
+            logger.error("分页查询账户流水失败", e);
+            // 设置查询状态和消息
+            map.put("message", "查询失败");
+            map.put("status", "error");
+        }
+        // 返回查询结果
+        return map;
     }
 }

@@ -71,13 +71,11 @@ public class DtsAccountTrace implements Serializable {
      * 手机号
      */
     @ApiModelProperty(value = "手机号")
-    @NotBlank
     private String mobile;
     /**
      * 短信提取码
      */
     @ApiModelProperty(value = "短信提取码")
-    @NotBlank
     private String smsCode;
     /**
      * 审批状态
@@ -88,8 +86,7 @@ public class DtsAccountTrace implements Serializable {
     /**
      * 消息内容
      */
-    @ApiModelProperty(value = "消息内容", required = true)
-    @NotBlank
+    @ApiModelProperty(value = "消息内容")
     private String traceMsg;
     /**
      * 审批时间

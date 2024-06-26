@@ -87,10 +87,19 @@
     </sql>
     <!--查询条数-->
     <select id="countByExample" resultMap="BaseResultMap" resultType="java.lang.Long">
-        select count(*) from dts_account_trace
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
+        select id,
+               trace_sn,
+               user_id,
+               type,
+               amount,
+               total_amount,
+               add_time,
+               mobile,
+               sms_code,
+               status,
+               trace_msg,
+               update_time
+        from dts_account_trace
     </select>
     <!--删除条件-->
     <delete id="deleteByExample">
@@ -198,18 +207,20 @@
     </insert>
 
     <select id="selectByExample" resultMap="BaseResultMap">
-        select
-        <if test="distinct">
-            distinct
-        </if>
-        <include refid="Base_Column_List"/>
-        from dts_account_trace
-        <if test="_parameter != null">
-            <include refid="Example_Where_Clause"/>
-        </if>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
+        SELECT id,
+               trace_sn,
+               user_id,
+               type,
+               amount,
+               total_amount,
+               add_time,
+               mobile,
+               sms_code,
+               status,
+               trace_msg,
+               update_time
+        FROM dts_account_trace
+        WHERE id = #{id}
     </select>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

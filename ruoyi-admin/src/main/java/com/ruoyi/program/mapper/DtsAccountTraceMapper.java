@@ -1,5 +1,6 @@
 package com.ruoyi.program.mapper;
 
+import com.ruoyi.program.entity.DtsAccountTrace;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface DtsAccountTraceMapper {
      * @param example
      * @return
      */
-    long countByExample(DtsAccountTraceMapper example);
+    List<DtsAccountTrace> countByExample(DtsAccountTrace example);
 
     /**
      * 根据条件删除
@@ -20,7 +21,7 @@ public interface DtsAccountTraceMapper {
      * @param example
      * @return
      */
-    int deleteByExample(DtsAccountTraceMapper example);
+    int deleteByExample(DtsAccountTrace example);
 
     /**
      * 根据主键删除
@@ -36,7 +37,7 @@ public interface DtsAccountTraceMapper {
      * @param record
      * @return
      */
-    int insertDtsAccountTrace(DtsAccountTraceMapper record);
+    boolean insertDtsAccountTrace(DtsAccountTrace record);
 
     /**
      * 插入
@@ -44,7 +45,7 @@ public interface DtsAccountTraceMapper {
      * @param record
      * @return
      */
-    int insertSelective(DtsAccountTraceMapper record);
+    int insertSelective(DtsAccountTrace record);
 
     /**
      * 根据条件查询
@@ -52,7 +53,7 @@ public interface DtsAccountTraceMapper {
      * @param example
      * @return
      */
-    List<DtsAccountTraceMapper> selectByExample(DtsAccountTraceMapper example);
+    List<DtsAccountTrace> selectByExample(DtsAccountTrace example);
 
     /**
      * 根据主键查询
@@ -60,7 +61,7 @@ public interface DtsAccountTraceMapper {
      * @param id
      * @return
      */
-    DtsAccountTraceMapper selectByPrimaryKey(Integer id);
+    DtsAccountTrace selectByPrimaryKey(Integer id);
 
     /**
      * 根据条件更新
@@ -69,7 +70,7 @@ public interface DtsAccountTraceMapper {
      * @param example
      * @return
      */
-    int updateByExampleSelective(DtsAccountTraceMapper record, DtsAccountTraceMapper example);
+    int updateByExampleSelective(DtsAccountTrace record, DtsAccountTrace example);
 
     /**
      * 根据条件更新
@@ -78,7 +79,7 @@ public interface DtsAccountTraceMapper {
      * @param example
      * @return
      */
-    int updateByExample(DtsAccountTraceMapper record, DtsAccountTraceMapper example);
+    int updateByExample(DtsAccountTrace record, DtsAccountTrace example);
 
     /**
      * 根据主键更新
@@ -86,7 +87,7 @@ public interface DtsAccountTraceMapper {
      * @param record
      * @return
      */
-    int updateByPrimaryKeySelective(DtsAccountTraceMapper record);
+    int updateByPrimaryKeySelective(DtsAccountTrace record);
 
     /**
      * 根据主键更新
@@ -94,6 +95,6 @@ public interface DtsAccountTraceMapper {
      * @param record
      * @return
      */
-    int updateByPrimaryKey(DtsAccountTraceMapper record);
+    int updateByPrimaryKey(DtsAccountTrace record);
 
 }

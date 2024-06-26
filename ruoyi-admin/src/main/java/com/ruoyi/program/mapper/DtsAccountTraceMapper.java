@@ -3,6 +3,7 @@ package com.ruoyi.program.mapper;
 import com.ruoyi.program.entity.DtsAccountTrace;
 import org.apache.ibatis.annotations.Mapper;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Mapper
@@ -29,7 +30,7 @@ public interface DtsAccountTraceMapper {
      * @param id
      * @return
      */
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(@NotNull Integer id);
 
     /**
      * 插入

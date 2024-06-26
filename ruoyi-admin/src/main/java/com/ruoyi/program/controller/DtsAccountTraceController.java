@@ -150,4 +150,35 @@ public class DtsAccountTraceController {
         // 返回响应，包含查询到的账户流水列表。
         return ResponseEntity.ok(list);
     }
+
+    @ApiOperation(value = "删除账户流水")
+    @PostMapping("/deleteDtsAccountTrace")
+    public ResponseEntity<String> deleteDtsAccountTrace(@RequestBody DtsAccountTrace record) {
+        try {
+            // 检查record对象是否为空，以及是否包含有效的ID
+            // 使用 Optional 进行空值检查
+            Optional.ofNullable(record)
+                    .map(DtsAccountTrace::getId)
+                    .orElseThrow(() -> new IllegalArgumentException("请求数据无效，账户流水ID不能为空"));
+
+            // 调用dtsAccountTraceMapper的deleteByPrimaryKey方法删除账户流水信息
+            int rowsAffected = dtsAccountTraceMapper.deleteByPrimaryKey(record.getId());
+
+            if (rowsAffected > 0) {
+                return ResponseEntity.ok("账户流水删除成功");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("未找到符合条件的账户流水");
+            }
+
+        } catch (IllegalArgumentException e) {
+            // 处理参数校验异常
+            logger.error("删除账户流水失败：参数校验失败", e);
+            return ResponseEntity.badRequest().body(e.getMessage());
+
+        } catch (Exception e) {
+            // 处理其他异常
+            logger.error("删除账户流水失败：服务器内部错误", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("删除账户流水失败，服务器内部错误");
+        }
+    }
 }

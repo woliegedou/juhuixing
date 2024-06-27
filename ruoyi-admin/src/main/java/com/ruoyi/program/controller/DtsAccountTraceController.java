@@ -20,7 +20,7 @@ import java.util.*;
 
 @Api(tags = {"账户流水"})
 @RestController
-@RequestMapping("/AccountStatement")
+@RequestMapping("/accountStatement")
 public class DtsAccountTraceController {
 
     /**

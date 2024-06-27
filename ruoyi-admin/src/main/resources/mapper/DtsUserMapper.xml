@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.program.mapper.DtsUserMapper">
+
+    <resultMap type="com.ruoyi.program.entity.DtsUser" id="DtsUserMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="INTEGER"/>
+        <result property="birthday" column="birthday" jdbcType="TIMESTAMP"/>
+        <result property="lastLoginTime" column="last_login_time" jdbcType="TIMESTAMP"/>
+        <result property="lastLoginIp" column="last_login_ip" jdbcType="VARCHAR"/>
+        <result property="userLevel" column="user_level" jdbcType="INTEGER"/>
+        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="weixinOpenid" column="weixin_openid" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createdBy" column="created_by" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+        <result property="updatedBy" column="updated_by" jdbcType="VARCHAR"/>
+        <result property="updatedTime" column="updated_time" jdbcType="TIMESTAMP"/>
+        <result property="isDelete" column="is_delete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DtsUserMap">
+        select id,
+               username,
+               password,
+               gender,
+               birthday,
+               last_login_time,
+               last_login_ip,
+               user_level,
+               nickname,
+               mobile,
+               avatar,
+               weixin_openid,
+               status,
+               created_by,
+               created_time,
+               updated_by,
+               updated_time,
+               is_delete
+        from dts_user
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DtsUserMap">
+        select
+        id,
+        username,
+        password,
+        gender,
+        birthday,
+        last_login_time,
+        last_login_ip,
+        user_level,
+        nickname,
+        mobile,
+        avatar,
+        weixin_openid,
+        status,
+        created_by,
+        created_time,
+        updated_by,
+        updated_time,
+        is_delete
+        from dts_user
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="birthday != null">
+                and birthday = #{birthday}
+            </if>
+            <if test="lastLoginTime != null">
+                and last_login_time = #{lastLoginTime}
+            </if>
+            <if test="lastLoginIp != null and lastLoginIp != ''">
+                and last_login_ip = #{lastLoginIp}
+            </if>
+            <if test="userLevel != null">
+                and user_level = #{userLevel}
+            </if>
+            <if test="nickname != null and nickname != ''">
+                and nickname = #{nickname}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                and mobile = #{mobile}
+            </if>
+            <if test="avatar != null and avatar != ''">
+                and avatar = #{avatar}
+            </if>
+            <if test="weixinOpenid != null and weixinOpenid != ''">
+                and weixin_openid = #{weixinOpenid}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createdBy != null and createdBy != ''">
+                and created_by = #{createdBy}
+            </if>
+            <if test="createdTime != null">
+                and created_time = #{createdTime}
+            </if>
+            <if test="updatedBy != null and updatedBy != ''">
+                and updated_by = #{updatedBy}
+            </if>
+            <if test="updatedTime != null">
+                and updated_time = #{updatedTime}
+            </if>
+            <if test="isDelete != null">
+                and is_delete = #{isDelete}
+            </if>
+        </where>
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from dts_user
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="birthday != null">
+                and birthday = #{birthday}
+            </if>
+            <if test="lastLoginTime != null">
+                and last_login_time = #{lastLoginTime}
+            </if>
+            <if test="lastLoginIp != null and lastLoginIp != ''">
+                and last_login_ip = #{lastLoginIp}
+            </if>
+            <if test="userLevel != null">
+                and user_level = #{userLevel}
+            </if>
+            <if test="nickname != null and nickname != ''">
+                and nickname = #{nickname}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                and mobile = #{mobile}
+            </if>
+            <if test="avatar != null and avatar != ''">
+                and avatar = #{avatar}
+            </if>
+            <if test="weixinOpenid != null and weixinOpenid != ''">
+                and weixin_openid = #{weixinOpenid}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createdBy != null and createdBy != ''">
+                and created_by = #{createdBy}
+            </if>
+            <if test="createdTime != null">
+                and created_time = #{createdTime}
+            </if>
+            <if test="updatedBy != null and updatedBy != ''">
+                and updated_by = #{updatedBy}
+            </if>
+            <if test="updatedTime != null">
+                and updated_time = #{updatedTime}
+            </if>
+            <if test="isDelete != null">
+                and is_delete = #{isDelete}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into dts_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null">username,</if>
+            <if test="password != null">password,</if>
+            <if test="gender != null">gender,</if>
+            <if test="birthday != null">birthday,</if>
+            <if test="lastLoginTime != null">last_login_time,</if>
+            <if test="lastLoginIp != null">last_login_ip,</if>
+            <if test="userLevel != null">user_level,</if>
+            <if test="nickname != null">nickname,</if>
+            <if test="mobile != null">mobile,</if>
+            <if test="avatar != null">avatar,</if>
+            <if test="weixinOpenid != null">weixin_openid,</if>
+            <if test="status != null">status,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="updatedTime != null">updated_time,</if>
+            <if test="isDelete != null">is_delete,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="username != null">#{username},</if>
+            <if test="password != null">#{password},</if>
+            <if test="gender != null">#{gender},</if>
+            <if test="birthday != null">#{birthday},</if>
+            <if test="lastLoginTime != null">#{lastLoginTime},</if>
+            <if test="lastLoginIp != null">#{lastLoginIp},</if>
+            <if test="userLevel != null">#{userLevel},</if>
+            <if test="nickname != null">#{nickname},</if>
+            <if test="mobile != null">#{mobile},</if>
+            <if test="avatar != null">#{avatar},</if>
+            <if test="weixinOpenid != null">#{weixinOpenid},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+            <if test="isDelete != null">#{isDelete},</if>
+        </trim>
+    </insert>
+
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into dts_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="entities[0].username != null">username,</if>
+            <if test="entities[0].password != null">password,</if>
+            <if test="entities[0].gender != null">gender,</if>
+            <if test="entities[0].birthday != null">birthday,</if>
+            <if test="entities[0].lastLoginTime != null">last_login_time,</if>
+            <if test="entities[0].lastLoginIp != null">last_login_ip,</if>
+            <if test="entities[0].userLevel != null">user_level,</if>
+            <if test="entities[0].nickname != null">nickname,</if>
+            <if test="entities[0].mobile != null">mobile,</if>
+            <if test="entities[0].avatar != null">avatar,</if>
+            <if test="entities[0].weixinOpenid != null">weixin_openid,</if>
+            <if test="entities[0].status != null">status,</if>
+            <if test="entities[0].createdBy != null">created_by,</if>
+            <if test="entities[0].createdTime != null">created_time,</if>
+            <if test="entities[0].updatedBy != null">updated_by,</if>
+            <if test="entities[0].updatedTime != null">updated_time,</if>
+            <if test="entities[0].isDelete != null">is_delete,</if>
+        </trim>
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="entity.username != null">#{entity.username},</if>
+                <if test="entity.password != null">#{entity.password},</if>
+                <if test="entity.gender != null">#{entity.gender},</if>
+                <if test="entity.birthday != null">#{entity.birthday},</if>
+                <if test="entity.lastLoginTime != null">#{entity.lastLoginTime},</if>
+                <if test="entity.lastLoginIp != null">#{entity.lastLoginIp},</if>
+                <if test="entity.userLevel != null">#{entity.userLevel},</if>
+                <if test="entity.nickname != null">#{entity.nickname},</if>
+                <if test="entity.mobile != null">#{entity.mobile},</if>
+                <if test="entity.avatar != null">#{entity.avatar},</if>
+                <if test="entity.weixinOpenid != null">#{entity.weixinOpenid},</if>
+                <if test="entity.status != null">#{entity.status},</if>
+                <if test="entity.createdBy != null">#{entity.createdBy},</if>
+                <if test="entity.createdTime != null">#{entity.createdTime},</if>
+                <if test="entity.updatedBy != null">#{entity.updatedBy},</if>
+                <if test="entity.updatedTime != null">#{entity.updatedTime},</if>
+                <if test="entity.isDelete != null">#{entity.isDelete},</if>
+            </trim>
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into dts_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="entities[0].username != null">username,</if>
+            <if test="entities[0].password != null">password,</if>
+            <if test="entities[0].gender != null">gender,</if>
+            <if test="entities[0].birthday != null">birthday,</if>
+            <if test="entities[0].lastLoginTime != null">last_login_time,</if>
+            <if test="entities[0].lastLoginIp != null">last_login_ip,</if>
+            <if test="entities[0].userLevel != null">user_level,</if>
+            <if test="entities[0].nickname != null">nickname,</if>
+            <if test="entities[0].mobile != null">mobile,</if>
+            <if test="entities[0].avatar != null">avatar,</if>
+            <if test="entities[0].weixinOpenid != null">weixin_openid,</if>
+            <if test="entities[0].status != null">status,</if>
+            <if test="entities[0].createdBy != null">created_by,</if>
+            <if test="entities[0].createdTime != null">created_time,</if>
+            <if test="entities[0].updatedBy != null">updated_by,</if>
+            <if test="entities[0].updatedTime != null">updated_time,</if>
+            <if test="entities[0].isDelete != null">is_delete,</if>
+        </trim>
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="entity.username != null">#{entity.username},</if>
+                <if test="entity.password != null">#{entity.password},</if>
+                <if test="entity.gender != null">#{entity.gender},</if>
+                <if test="entity.birthday != null">#{entity.birthday},</if>
+                <if test="entity.lastLoginTime != null">#{entity.lastLoginTime},</if>
+                <if test="entity.lastLoginIp != null">#{entity.lastLoginIp},</if>
+                <if test="entity.userLevel != null">#{entity.userLevel},</if>
+                <if test="entity.nickname != null">#{entity.nickname},</if>
+                <if test="entity.mobile != null">#{entity.mobile},</if>
+                <if test="entity.avatar != null">#{entity.avatar},</if>
+                <if test="entity.weixinOpenid != null">#{entity.weixinOpenid},</if>
+                <if test="entity.status != null">#{entity.status},</if>
+                <if test="entity.createdBy != null">#{entity.createdBy},</if>
+                <if test="entity.createdTime != null">#{entity.createdTime},</if>
+                <if test="entity.updatedBy != null">#{entity.updatedBy},</if>
+                <if test="entity.updatedTime != null">#{entity.updatedTime},</if>
+                <if test="entity.isDelete != null">#{entity.isDelete},</if>
+            </trim>
+        </foreach>
+        on duplicate key update
+        <trim prefix="" suffixOverrides=",">
+            <if test="entities[0].username != null">username = values(username),</if>
+            <if test="entities[0].password != null">password = values(password),</if>
+            <if test="entities[0].gender != null">gender = values(gender),</if>
+            <if test="entities[0].birthday != null">birthday = values(birthday),</if>
+            <if test="entities[0].lastLoginTime != null">last_login_time = values(last_login_time),</if>
+            <if test="entities[0].lastLoginIp != null">last_login_ip = values(last_login_ip),</if>
+            <if test="entities[0].userLevel != null">user_level = values(user_level),</if>
+            <if test="entities[0].nickname != null">nickname = values(nickname),</if>
+            <if test="entities[0].mobile != null">mobile = values(mobile),</if>
+            <if test="entities[0].avatar != null">avatar = values(avatar),</if>
+            <if test="entities[0].weixinOpenid != null">weixin_openid = values(weixin_openid),</if>
+            <if test="entities[0].status != null">status = values(status),</if>
+            <if test="entities[0].createdBy != null">created_by = values(created_by),</if>
+            <if test="entities[0].createdTime != null">created_time = values(created_time),</if>
+            <if test="entities[0].updatedBy != null">updated_by = values(updated_by),</if>
+            <if test="entities[0].updatedTime != null">updated_time = values(updated_time),</if>
+            <if test="entities[0].isDelete != null">is_delete = values(is_delete),</if>
+        </trim>
+    </insert>
+
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dts_user
+        <set>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time = #{lastLoginTime},
+            </if>
+            <if test="lastLoginIp != null and lastLoginIp != ''">
+                last_login_ip = #{lastLoginIp},
+            </if>
+            <if test="userLevel != null">
+                user_level = #{userLevel},
+            </if>
+            <if test="nickname != null and nickname != ''">
+                nickname = #{nickname},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile = #{mobile},
+            </if>
+            <if test="avatar != null and avatar != ''">
+                avatar = #{avatar},
+            </if>
+            <if test="weixinOpenid != null and weixinOpenid != ''">
+                weixin_openid = #{weixinOpenid},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createdBy != null and createdBy != ''">
+                created_by = #{createdBy},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime},
+            </if>
+            <if test="updatedBy != null and updatedBy != ''">
+                updated_by = #{updatedBy},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from dts_user
+        where id = #{id}
+    </delete>
+
+</mapper>
+

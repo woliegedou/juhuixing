@@ -97,5 +97,4 @@ public interface DtsAccountTraceMapper {
      * @return
      */
     int updateByPrimaryKey(DtsAccountTrace record);
-
 }

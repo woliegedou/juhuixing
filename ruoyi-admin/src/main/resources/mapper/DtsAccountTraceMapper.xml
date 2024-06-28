@@ -9,12 +9,18 @@
         <result column="amount" property="amount" jdbcType="DOUBLE"/>
         <result column="type" property="type" jdbcType="INTEGER"/>
         <result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
-        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
         <result column="status" property="status" jdbcType="INTEGER"/>
-        <result column="is_delete" property="isDelete" jdbcType="BIGINT"/>
-        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
         <result column="trace_msg" property="traceMsg" jdbcType="VARCHAR"/>
-        <result column="sms_code" property="smsCode" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="created_by" property="createdBy" jdbcType="VARCHAR"/>
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+        <result column="updated_by" property="updatedBy" jdbcType="VARCHAR"/>
+        <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
+        <result column="is_delete" property="isDelete" jdbcType="BIGINT"/>
+        <collection property="dtsUserList" ofType="com.ruoyi.program.entity.DtsUser">
+            <id column="id" property="id" jdbcType="INTEGER"/>
+            <result column="username" property="username" jdbcType="VARCHAR"/>
+        </collection>
     </resultMap>
     <sql id="Example_Where_Clause">
         <!--
@@ -85,21 +91,24 @@
             </foreach>
         </where>
     </sql>
-    <!--查询条数-->
-    <select id="countByExample" resultMap="BaseResultMap" resultType="java.lang.Long">
-        select id,
-               trace_sn,
-               user_id,
-               type,
-               amount,
-               total_amount,
-               add_time,
-               mobile,
-               sms_code,
-               status,
-               trace_msg,
-               update_time
-        from dts_account_trace
+    <select id="countByExample" resultMap="BaseResultMap">
+        SELECT at.id,
+               at.trace_sn,
+               at.user_id,
+               at.type,
+               at.amount,
+               at.total_amount,
+               at.add_time,
+               at.mobile,
+               at.sms_code,
+               at.status,
+               at.trace_msg,
+               at.update_time,
+               u.id as user_id,
+               u.username
+        -- other user fields...
+        FROM dts_account_trace at
+                 LEFT JOIN dts_user u ON at.user_id = u.id
     </select>
     <!--删除条件-->
     <delete id="deleteByExample">

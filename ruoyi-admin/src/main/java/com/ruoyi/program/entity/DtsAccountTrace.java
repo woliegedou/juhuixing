@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 账户流水表(DtsAccountTrace)实体类
@@ -122,60 +123,10 @@ public class DtsAccountTrace implements Serializable {
      */
     @ApiModelProperty(value = "逻辑删除")
     private Long isDelete;
-
-    @Override
-    public boolean equals(Object that) {
-        if (this == that) {
-            return true;
-        }
-        if (that == null) {
-            return false;
-        }
-        if (getClass() != that.getClass()) {
-            return false;
-        }
-        DtsAccountTrace other = (DtsAccountTrace) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-                && (this.getTraceSn() == null ? other.getTraceSn() == null : this.getTraceSn().equals(other.getTraceSn()))
-                && (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
-                && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
-                && (this.getAmount() == null ? other.getAmount() == null : this.getAmount().equals(other.getAmount()))
-                && (this.getTotalAmount() == null ? other.getTotalAmount() == null : this.getTotalAmount().equals(other.getTotalAmount()))
-                && (this.getAddTime() == null ? other.getAddTime() == null : this.getAddTime().equals(other.getAddTime()))
-                && (this.getMobile() == null ? other.getMobile() == null : this.getMobile().equals(other.getMobile()))
-                && (this.getSmsCode() == null ? other.getSmsCode() == null : this.getSmsCode().equals(other.getSmsCode()))
-                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-                && (this.getTraceMsg() == null ? other.getTraceMsg() == null : this.getTraceMsg().equals(other.getTraceMsg()))
-                && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-                && (this.getCreatedBy() == null ? other.getCreatedBy() == null : this.getCreatedBy().equals(other.getCreatedBy()))
-                && (this.getCreatedTime() == null ? other.getCreatedTime() == null : this.getCreatedTime().equals(other.getCreatedTime()))
-                && (this.getUpdatedBy() == null ? other.getUpdatedBy() == null : this.getUpdatedBy().equals(other.getUpdatedBy()))
-                && (this.getUpdatedTime() == null ? other.getUpdatedTime() == null : this.getUpdatedTime().equals(other.getUpdatedTime()))
-                && (this.getIsDelete() == null ? other.getIsDelete() == null : this.getIsDelete().equals(other.getIsDelete()));
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getTraceSn() == null) ? 0 : getTraceSn().hashCode());
-        result = prime * result + ((getUserId() == null) ? 0 : getUserId().hashCode());
-        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
-        result = prime * result + ((getAmount() == null) ? 0 : getAmount().hashCode());
-        result = prime * result + ((getTotalAmount() == null) ? 0 : getTotalAmount().hashCode());
-        result = prime * result + ((getAddTime() == null) ? 0 : getAddTime().hashCode());
-        result = prime * result + ((getMobile() == null) ? 0 : getMobile().hashCode());
-        result = prime * result + ((getSmsCode() == null) ? 0 : getSmsCode().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
-        result = prime * result + ((getTraceMsg() == null) ? 0 : getTraceMsg().hashCode());
-        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
-        result = prime * result + ((getCreatedBy() == null) ? 0 : getCreatedBy().hashCode());
-        result = prime * result + ((getCreatedTime() == null) ? 0 : getCreatedTime().hashCode());
-        result = prime * result + ((getUpdatedBy() == null) ? 0 : getUpdatedBy().hashCode());
-        result = prime * result + ((getUpdatedTime() == null) ? 0 : getUpdatedTime().hashCode());
-        result = prime * result + ((getIsDelete() == null) ? 0 : getIsDelete().hashCode());
-        return result;
-    }
+    /**
+     * 关联管理用户表
+     */
+    @ApiModelProperty(value = "管理用户表")
+    private List<DtsUser> dtsUserList;
 }
 

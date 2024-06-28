@@ -141,14 +141,8 @@ public class DtsAccountTraceController {
      */
     @ApiOperation(value = "查询账户流水")
     @GetMapping("/selectDtsAccountTrace")
-    public ResponseEntity<List<DtsAccountTrace>> selectDtsAccountTrace(DtsAccountTrace example) {
-        // 调用dtsAccountTraceMapper的countByExample方法查询符合条件的账户流水记录总数。
-        // 调用dtsAccountTraceMapper的selectByExample方法查询账户流水信息。
-        List<DtsAccountTrace> list = dtsAccountTraceMapper.countByExample(example);
-        logger.info("查询账户流水记录成功");
-        // 返回查询结果，HTTP状态码为200。
-        // 返回响应，包含查询到的账户流水列表。
-        return ResponseEntity.ok(list);
+    public List<DtsAccountTrace> selectDtsAccountTrace(DtsAccountTrace example) {
+        return dtsAccountTraceMapper.countByExample(example);
     }
 
     @ApiOperation(value = "删除账户流水")

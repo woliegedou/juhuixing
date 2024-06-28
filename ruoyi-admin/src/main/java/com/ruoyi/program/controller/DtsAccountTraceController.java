@@ -128,16 +128,12 @@ public class DtsAccountTraceController {
         }
     }
 
+
     /**
-     * 通过GET请求查询DtsAccountTrace账户流水信息。
-     * <p>
-     * 该接口使用@ApiOperation注解指明其API操作的描述和价值。使用@GetMapping注解指定该方法处理GET类型的HTTP请求。
-     * 请求的URL路径为/selectDtsAccountTrace。方法参数example是一个DtsAccountTrace对象，
-     * 用于传递查询条件。返回值是一个包含DtsAccountTrace对象列表的ResponseEntity。
-     * </p>
+     * 根据示例查询DtsAccountTrace账户流水信息
      *
-     * @param example 查询条件对象，用于指定查询的条件。
-     * @return 包含查询结果的ResponseEntity对象。响应体中包含查询到的DtsAccountTrace对象列表。
+     * @param example 查询条件示例，用于指定查询的条件和筛选规则
+     * @return 返回匹配查询条件的DtsAccountTrace账户流水列表
      */
     @ApiOperation(value = "查询账户流水")
     @GetMapping("/selectDtsAccountTrace")

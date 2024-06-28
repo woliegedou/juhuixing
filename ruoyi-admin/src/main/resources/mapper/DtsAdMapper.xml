@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ruoyi.program.mapper.DtsAdMapper">
+    <resultMap id="BaseResultMap" type="com.ruoyi.program.entity.DtsAd">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="link" property="link" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="position" property="position" jdbcType="TINYINT"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP"/>
+        <result column="content" property="content" jdbcType="VARCHAR"/>
+        <result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="deleted" property="deleted" jdbcType="BIT"/>
+    </resultMap>
+    <select id="queryById" resultMap="BaseResultMap">
+        select id,
+               name,
+               link,
+               url,
+               position,
+               end_time,
+               start_time,
+               content,
+               add_time,
+               update_time,
+               deleted
+        from dts_ad
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="queryAllByLimit" resultMap="BaseResultMap">
+        select
+        id,
+        name,
+        link,
+        url,
+        position,
+        end_time,
+        start_time,
+        content,
+        add_time,
+        update_time,
+        deleted
+        from dts_ad
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="link != null and link != ''">
+                and link = #{link}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="position != null">
+                and position = #{position}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="startTime != null">
+                and start_time = #{startTime}
+            </if>
+            <if test="endTime != null">
+                and end_time = #{endTime}
+            </if>
+            <if test="enabled != null">
+                and enabled = #{enabled}
+            </if>
+            <if test="addTime != null">
+                and add_time = #{addTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="deleted != null">
+                and deleted = #{deleted}
+            </if>
+        </where>
+    </select>
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from dts_ad
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="link != null and link != ''">
+                and link = #{link}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="position != null">
+                and position = #{position}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="startTime != null">
+                and start_time = #{startTime}
+            </if>
+            <if test="endTime != null">
+                and end_time = #{endTime}
+            </if>
+            <if test="enabled != null">
+                and enabled = #{enabled}
+            </if>
+            <if test="addTime != null">
+                and add_time = #{addTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="deleted != null">
+                and deleted = #{deleted}
+            </if>
+        </where>
+    </select>
+
+    <!-- 新增单个记录 -->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into dts_ad
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="link != null">link,</if>
+            <if test="url != null">url,</if>
+            <if test="position != null">position,</if>
+            <if test="content != null">content,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="enabled != null">enabled,</if>
+            <if test="addTime != null">add_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="deleted != null">deleted,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="link != null">#{link},</if>
+            <if test="url != null">#{url},</if>
+            <if test="position != null">#{position},</if>
+            <if test="content != null">#{content},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="enabled != null">#{enabled},</if>
+            <if test="addTime != null">#{addTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="deleted != null">#{deleted},</if>
+        </trim>
+    </insert>
+
+    <!-- 批量新增记录 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into dts_ad
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="entities[0].name != null">name,</if>
+            <if test="entities[0].link != null">link,</if>
+            <if test="entities[0].url != null">url,</if>
+            <if test="entities[0].position != null">position,</if>
+            <if test="entities[0].content != null">content,</if>
+            <if test="entities[0].startTime != null">start_time,</if>
+            <if test="entities[0].endTime != null">end_time,</if>
+            <if test="entities[0].enabled != null">enabled,</if>
+            <if test="entities[0].addTime != null">add_time,</if>
+            <if test="entities[0].updateTime != null">update_time,</if>
+            <if test="entities[0].deleted != null">deleted,</if>
+        </trim>
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="entity.name != null">#{entity.name},</if>
+                <if test="entity.link != null">#{entity.link},</if>
+                <if test="entity.url != null">#{entity.url},</if>
+                <if test="entity.position != null">#{entity.position},</if>
+                <if test="entity.content != null">#{entity.content},</if>
+                <if test="entity.startTime != null">#{entity.startTime},</if>
+                <if test="entity.endTime != null">#{entity.endTime},</if>
+                <if test="entity.enabled != null">#{entity.enabled},</if>
+                <if test="entity.addTime != null">#{entity.addTime},</if>
+                <if test="entity.updateTime != null">#{entity.updateTime},</if>
+                <if test="entity.deleted != null">#{entity.deleted},</if>
+            </trim>
+        </foreach>
+    </insert>
+
+    <!-- 批量新增或更新记录 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into dts_ad
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="entities[0].name != null">name,</if>
+            <if test="entities[0].link != null">link,</if>
+            <if test="entities[0].url != null">url,</if>
+            <if test="entities[0].position != null">position,</if>
+            <if test="entities[0].content != null">content,</if>
+            <if test="entities[0].startTime != null">start_time,</if>
+            <if test="entities[0].endTime != null">end_time,</if>
+            <if test="entities[0].enabled != null">enabled,</if>
+            <if test="entities[0].addTime != null">add_time,</if>
+            <if test="entities[0].updateTime != null">update_time,</if>
+            <if test="entities[0].deleted != null">deleted,</if>
+        </trim>
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="entity.name != null">#{entity.name},</if>
+                <if test="entity.link != null">#{entity.link},</if>
+                <if test="entity.url != null">#{entity.url},</if>
+                <if test="entity.position != null">#{entity.position},</if>
+                <if test="entity.content != null">#{entity.content},</if>
+                <if test="entity.startTime != null">#{entity.startTime},</if>
+                <if test="entity.endTime != null">#{entity.endTime},</if>
+                <if test="entity.enabled != null">#{entity.enabled},</if>
+                <if test="entity.addTime != null">#{entity.addTime},</if>
+                <if test="entity.updateTime != null">#{entity.updateTime},</if>
+                <if test="entity.deleted != null">#{entity.deleted},</if>
+            </trim>
+        </foreach>
+        on duplicate key update
+        <trim suffixOverrides=",">
+            <if test="entities[0].name != null">name = values(name),</if>
+            <if test="entities[0].link != null">link = values(link),</if>
+            <if test="entities[0].url != null">url = values(url),</if>
+            <if test="entities[0].position != null">position = values(position),</if>
+            <if test="entities[0].content != null">content = values(content),</if>
+            <if test="entities[0].startTime != null">start_time = values(start_time),</if>
+            <if test="entities[0].endTime != null">end_time = values(end_time),</if>
+            <if test="entities[0].enabled != null">enabled = values(enabled),</if>
+            <if test="entities[0].addTime != null">add_time = values(add_time),</if>
+            <if test="entities[0].updateTime != null">update_time = values(update_time),</if>
+            <if test="entities[0].deleted != null">deleted = values(deleted),</if>
+        </trim>
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update dts_ad
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="link != null and link != ''">
+                link = #{link},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+            <if test="position != null">
+                position = #{position},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="startTime != null">
+                start_time = #{startTime},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime},
+            </if>
+            <if test="enabled != null">
+                enabled = #{enabled},
+            </if>
+            <if test="addTime != null">
+                add_time = #{addTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from dts_ad
+        where id = #{id}
+    </delete>
+
+</mapper>

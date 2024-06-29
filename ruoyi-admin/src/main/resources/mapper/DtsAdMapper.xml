@@ -48,19 +48,19 @@
                 and id = #{id}
             </if>
             <if test="name != null and name != ''">
-                and name = #{name}
+                and name like concat('%', #{name}, '%')
             </if>
             <if test="link != null and link != ''">
-                and link = #{link}
+                and link like concat('%', #{link}, '%')
             </if>
             <if test="url != null and url != ''">
-                and url = #{url}
+                and url like concat('%', #{url}, '%')
             </if>
             <if test="position != null">
                 and position = #{position}
             </if>
             <if test="content != null and content != ''">
-                and content = #{content}
+                and content like concat('%', #{content}, '%')
             </if>
             <if test="startTime != null">
                 and start_time = #{startTime}

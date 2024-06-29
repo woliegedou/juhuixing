@@ -5,13 +5,12 @@ import com.ruoyi.program.entity.DtsUser;
 import com.ruoyi.program.mapper.DtsUserMapper;
 import com.ruoyi.program.service.DtsUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class DtsUserServiceImpl implements DtsUserService {
+public class DtsUserServiceimpl implements DtsUserService {
 
     @Autowired
     private DtsUserMapper dtsUserMapper;

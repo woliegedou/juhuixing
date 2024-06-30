@@ -3,6 +3,7 @@ package com.ruoyi.program.mapper;
 import com.ruoyi.program.entity.DtsAd;
 import com.ruoyi.program.entity.DtsRegion;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -54,4 +55,12 @@ public interface DtsRegionMapper {
      * @return
      */
     int deletedtsRegion(Long id);
+
+    /**
+     * 通过实体作为筛选条件查询
+     *
+     * @param name 实例对象
+     * @return 对象列表
+     */
+    List<DtsRegion> searchMajorByName(@Param("name") String name);
 }

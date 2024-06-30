@@ -19,20 +19,39 @@
         values (#{pid}, #{name}, #{type}, #{code}, #{createdBy}, #{createdTime}, #{updatedBy}, #{updatedTime},
                 #{isDelete})
     </insert>
+    <!--通过主键修改数据-->
     <update id="updatedtsRegion">
         update dts_region
         <set>
-            <if test="id != null">id = #{id},</if>
-            <if test="pid != null">pid = #{pid},</if>
-            <if test="name != null">name = #{name},</if>
-            <if test="type != null">type = #{type},</if>
-            <if test="code != null">code = #{code},</if>
-            <if test="createdBy != null">created_by = #{createdBy},</if>
-            <if test="createdTime != null">created_time = #{createdTime},</if>
-            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
-            <if test="updatedTime != null">updated_time = #{updatedTime},</if>
-            <if test="isDelete != null">is_delete = #{isDelete},</if>
+            <if test="pid != null">
+                pid = #{pid},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="createdBy != null and createdBy != ''">
+                created_by = #{createdBy},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime},
+            </if>
+            <if test="updatedBy != null and updatedBy != ''">
+                updated_by = #{updatedBy},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
         </set>
+        where id = #{id}
     </update>
     <delete id="deletedtsRegion">
         DELETE
@@ -62,7 +81,7 @@
                 AND pid = #{pid}
             </if>
             <if test="name != null and name != ''">
-                AND name LIKE CONCAT('%', #{name}, '%')
+                AND name = #{name}
             </if>
             <if test="type != null">
                 AND type = #{type}
@@ -121,7 +140,7 @@
                 AND pid = #{pid}
             </if>
             <if test="name != null and name != ''">
-                AND name = #{name}
+                AND name LIKE CONCAT('%', #{name}, '%')
             </if>
             <if test="type != null">
                 AND type = #{type}
@@ -145,6 +164,20 @@
                 AND is_delete = #{isDelete}
             </if>
         </where>
+    </select>
+    <select id="searchMajorByName" resultType="com.ruoyi.program.entity.DtsRegion">
+        SELECT id,
+               pid,
+               name,
+               type,
+               code,
+               created_by,
+               created_time,
+               updated_by,
+               updated_time,
+               is_delete
+        FROM dts_region
+        WHERE name LIKE '%${name}%'
     </select>
 
 

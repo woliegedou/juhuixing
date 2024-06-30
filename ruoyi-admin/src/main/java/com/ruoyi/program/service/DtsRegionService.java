@@ -2,6 +2,7 @@ package com.ruoyi.program.service;
 
 import com.ruoyi.program.entity.DtsAd;
 import com.ruoyi.program.entity.DtsRegion;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -60,4 +61,12 @@ public interface DtsRegionService {
      * @return
      */
     public List<DtsRegion> buildDeptTree(List<DtsRegion> dtsRegion);
+
+    /**
+     * 通过实体作为筛选条件查询
+     *
+     * @param name 实例对象
+     * @return 对象列表
+     */
+    List<DtsRegion> searchMajorByName(@Param("name") String name);
 }

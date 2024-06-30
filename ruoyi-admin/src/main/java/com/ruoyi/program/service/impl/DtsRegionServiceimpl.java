@@ -105,6 +105,11 @@ public class DtsRegionServiceimpl implements DtsRegionService {
         return returnList;
     }
 
+    @Override
+    public List<DtsRegion> searchMajorByName(String name) {
+        return dtsRegionMapper.searchMajorByName(name);
+    }
+
     /**
      * 递归函数，用于构建指定节点的子节点树
      *

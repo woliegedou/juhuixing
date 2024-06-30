@@ -57,14 +57,14 @@ public class DtsRegion implements Serializable {
      * 行政区域类型，如如1则是省， 如果是2则是市，如果是3则是区县
      */
     @ApiModelProperty(value = "行政区域类型，如如1则是省， 如果是2则是市，如果是3则是区县", required = true)
-    @NotBlank
+    @NotNull
     private Integer type;
 
     /**
      * 行政区域编码
      */
+    @NotNull
     @ApiModelProperty(value = "行政区域编码", required = true)
-    @NotBlank
     private Integer code;
 
     /**

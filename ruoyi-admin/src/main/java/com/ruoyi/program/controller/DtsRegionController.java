@@ -1,5 +1,7 @@
 package com.ruoyi.program.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.program.entity.DtsRegion;
 import com.ruoyi.program.service.DtsRegionService;
@@ -11,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Api(tags = "行政区划管理")
@@ -64,5 +68,83 @@ public class DtsRegionController {
         }
     }
 
+    /**
+     * 修改行政区划信息
+     * 通过POST请求调用此方法来更新DtsRegion对象的行政区划信息。
+     * 如果更新成功，返回状态码200和成功消息；如果更新失败，返回状态码500和错误消息。
+     *
+     * @param dtsRegion 包含待更新行政区划信息的请求体。
+     * @return ResponseEntity<?> 根据更新结果返回不同的响应体，包括成功或失败的消息。
+     */
+    @ApiOperation(value = "修改行政区划")
+    @PostMapping("/updatedtsRegion")
+    public ResponseEntity<?> updatedtsRegion(@Validated @RequestBody DtsRegion dtsRegion) {
+        // 调用服务层方法尝试更新行政区划信息
+        int result = dtsRegionService.updatedtsRegion(dtsRegion);
+        // 根据更新结果返回不同的响应
+        if (result > 0) {
+            // 修改成功
+            return ResponseEntity.ok().body("行政区划修改成功");
+        } else {
+            // 修改失败
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("行政区划修改失败");
+        }
+    }
+
+    @ApiOperation(value = "删除行政区划")
+    @PostMapping("/deletedtsRegion")
+    public ResponseEntity<String> deletedtsRegion(@RequestParam Long id) {
+        // 调用服务层方法尝试删除行政区划信息
+        boolean result = dtsRegionService.deletedtsRegion(id);
+        // 根据删除结果返回不同的响应
+        if (result) {
+            // 删除成功
+            return ResponseEntity.ok().body("行政区划删除成功");
+        } else {
+            // 删除失败
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("行政区划删除失败");
+        }
+    }
+
+    /**
+     * 分页查询行政区划信息。
+     * 使用Swagger注解ApiOperation指明该方法的作用是分页查询行政区划。
+     * 使用@GetMapping注解指明该方法处理GET请求，并指定请求的URL路径为/paginationqueryannouncement。
+     *
+     * @param dtsRegion 行政区划实体类，用于传递查询条件。
+     * @param pageNum   请求的页码，默认为1。
+     * @param pageSize  每页显示的记录数，默认为10。
+     * @return 返回一个Map对象，其中包含分页信息和行政区划列表。
+     * "data" 键对应的值是总记录数，"dtsRegions" 键对应的值是行政区划列表。
+     */
+    @ApiOperation(value = "分页查询行政区划")
+    @GetMapping("/paginationqueryannouncement")
+    public Map<String, Object> selectDtsRegion(DtsRegion dtsRegion,
+                                               @RequestParam(defaultValue = "1") Integer pageNum,
+                                               @RequestParam(defaultValue = "10") Integer pageSize) {
+        // 初始化返回的数据Map
+        HashMap<String, Object> map = new HashMap<>();
+        // 初始化分页插件，开始分页
+        PageHelper.startPage(pageNum, pageSize);
+
+        // 调用服务层方法查询行政区划信息
+        List<DtsRegion> dtsRegions = dtsRegionService.queryAllByLimit(dtsRegion);
+
+        // 创建PageInfo对象，用于包装分页信息
+        PageInfo<Object> pageInfo = new PageInfo<>(dtsRegions);
+        // 将总记录数和行政区划列表放入返回的Map中
+        map.put("data", pageInfo.getTotal());
+        map.put("dtsRegions", dtsRegions);
+        // 返回包含分页信息和行政区划列表的Map
+        return map;
+    }
+
+    @ApiOperation(value = "模糊查询行政区划")
+    @GetMapping("/selectDtsRegionByLike")
+    public AjaxResult selectDtsRegionByLike(@RequestParam("name") String name) {
+        List<DtsRegion> dtsRegions = dtsRegionService.searchMajorByName(name);
+        List<DtsRegion> dtsRegion = dtsRegionService.buildDeptTree(dtsRegions);
+        return AjaxResult.success(dtsRegion);
+    }
 
 }

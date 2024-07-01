@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ruoyi.program.mapper.DtsAddressMapper">
+    <resultMap id="BaseResultMap" type="com.ruoyi.program.entity.DtsAddress">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="province_id" property="provinceId" jdbcType="INTEGER"/>
+        <result column="city_id" property="cityId" jdbcType="INTEGER"/>
+        <result column="area_id" property="areaId" jdbcType="INTEGER"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="is_default" property="isDefault" jdbcType="INTEGER"/>
+        <result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="deleted" property="deleted" jdbcType="BIT"/>
+        <!-- <collection property="dtsUserList" javaType="com.ruoyi.program.entity.DtsUser">
+             <id column="id" property="id" jdbcType="INTEGER"/>
+             <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+         </collection>
+         <collection property="dtsRegionList" javaType="com.ruoyi.program.entity.DtsRegion">
+             <id column="id" property="id" jdbcType="INTEGER"/>
+             <result column="pid" property="pid" jdbcType="INTEGER"/>
+             <result column="name" property="name" jdbcType="VARCHAR"/>
+             <result column="type" property="type" jdbcType="TINYINT"/>
+             <result column="code" property="code" jdbcType="INTEGER"/>
+             <result column="created_by" property="createdBy" jdbcType="VARCHAR"/>
+             <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+             <result column="updated_by" property="updatedBy" jdbcType="VARCHAR"/>
+             <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
+             <result column="is_delete" property="isDelete" jdbcType="BIT"/>
+         </collection>-->
+    </resultMap>
+    <insert id="insertdtsAddress">
+        INSERT INTO dts_address
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="provinceId != null">province_id,</if>
+            <if test="cityId != null">city_id,</if>
+            <if test="areaId != null">area_id,</if>
+            <if test="address != null">address,</if>
+            <if test="mobile != null">mobile,</if>
+            <if test="isDefault != null">is_default,</if>
+            <if test="addTime != null">add_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="deleted != null">deleted</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name,jdbcType=VARCHAR},</if>
+            <if test="userId != null">#{userId,jdbcType=INTEGER},</if>
+            <if test="provinceId != null">#{provinceId,jdbcType=INTEGER},</if>
+            <if test="cityId != null">#{cityId,jdbcType=INTEGER},</if>
+            <if test="areaId != null">#{areaId,jdbcType=INTEGER},</if>
+            <if test="address != null">#{address,jdbcType=VARCHAR},</if>
+            <if test="mobile != null">#{mobile,jdbcType=VARCHAR},</if>
+            <if test="isDefault != null">#{isDefault,jdbcType=INTEGER},</if>
+            <if test="addTime != null">#{addTime,jdbcType=TIMESTAMP},</if>
+            <if test="updateTime != null">#{updateTime,jdbcType=TIMESTAMP},</if>
+            <if test="deleted != null">#{deleted,jdbcType=BIT}</if>
+        </trim>
+    </insert>
+    <update id="updatedtsAddress">
+        UPDATE dts_address
+        <set>
+            <if test="name != null">name = #{name,jdbcType=VARCHAR},</if>
+            <if test="userId != null">user_id = #{userId,jdbcType=INTEGER},</if>
+            <if test="provinceId != null">province_id = #{provinceId,jdbcType=INTEGER},</if>
+            <if test="cityId != null">city_id = #{cityId,jdbcType=INTEGER},</if>
+            <if test="areaId != null">area_id = #{areaId,jdbcType=INTEGER},</if>
+            <if test="address != null">address = #{address,jdbcType=VARCHAR},</if>
+            <if test="mobile != null">mobile = #{mobile,jdbcType=VARCHAR},</if>
+            <if test="isDefault != null">is_default = #{isDefault,jdbcType=INTEGER},</if>
+        </set>
+    </update>
+    <delete id="deleteDtsAddress">
+        delete
+        from dts_address
+        where id = #{id}
+    </delete>
+    <select id="selectdtsAddress" resultMap="BaseResultMap">
+        select id,
+        name,
+        user_id,
+        province_id,
+        city_id,
+        area_id,
+        address,
+        mobile,
+        is_default,
+        add_time,
+        update_time,
+        deleted
+        from dts_address
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null">
+                and name like concat('%', #{name}, '%')
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="provinceId != null">
+                and province_id = #{provinceId}
+            </if>
+            <if test="cityId != null">
+                and city_id = #{cityId}
+            </if>
+            <if test="areaId != null">
+                and area_id = #{areaId}
+            </if>
+            <if test="address != null">
+                and address = #{address}
+            </if>
+            <if test="mobile != null">
+                and mobile = #{mobile}
+            </if>
+            <if test="isDefault != null">
+                and is_default = #{isDefault}
+            </if>
+            <if test="addTime != null">
+                and add_time = #{addTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="deleted != null">
+                and deleted = #{deleted}
+            </if>
+        </where>
+
+    </select>
+    <select id="selectdtsAddressByUserId" resultType="com.ruoyi.program.entity.DtsAddress">
+        select id,
+               name,
+               user_id,
+               province_id,
+               city_id,
+               area_id,
+               address,
+               mobile,
+               is_default,
+               add_time,
+               update_time,
+               deleted
+        from dts_address
+        where id = #{id}
+    </select>
+    <select id="selectdtsAddressed" resultMap="BaseResultMap">
+        SELECT
+        id,
+        name,
+        user_id,
+        province_id,
+        city_id,
+        area_id,
+        address,
+        mobile,
+        is_default,
+        add_time,
+        update_time,
+        deleted
+        FROM dts_address
+        <where>
+            <if test="name != null and name != ''">
+                AND name LIKE CONCAT('%', #{name}, '%')
+            </if>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="provinceId != null">
+                AND province_id = #{provinceId}
+            </if>
+            <if test="cityId != null">
+                AND city_id = #{cityId}
+            </if>
+            <if test="areaId != null">
+                AND area_id = #{areaId}
+            </if>
+            <if test="mobile != null">
+                AND mobile = #{mobile}
+            </if>
+            <if test="isDefault != null">
+                AND is_default = #{isDefault}
+            </if>
+            <if test="addTime != null">
+                AND add_time = #{addTime}
+            </if>
+            <if test="updateTime != null">
+                AND update_time = #{updateTime}
+            </if>
+            <if test="deleted != null">
+                AND deleted = #{deleted}
+            </if>
+        </where>
+    </select>
+</mapper>

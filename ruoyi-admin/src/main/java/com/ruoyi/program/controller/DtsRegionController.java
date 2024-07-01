@@ -139,11 +139,25 @@ public class DtsRegionController {
         return map;
     }
 
+    /**
+     * 通过模糊查询方式获取行政区划信息。
+     * <p>
+     * 本接口旨在提供一种通过名称模糊查询行政区划的能力，并返回查询结果的树状结构。
+     * 使用者可以通过提供的名称参数来检索行政区划数据，并以利于前端展示的树形结构返回结果。
+     *
+     * @param name 行政区划名称的查询条件。
+     * @return 包含查询结果的树状结构列表的AjaxResult对象。
+     * @see AjaxResult 成功结果的封装类。
+     * @see DtsRegion 行政区划实体类。
+     */
     @ApiOperation(value = "模糊查询行政区划")
     @GetMapping("/selectDtsRegionByLike")
     public AjaxResult selectDtsRegionByLike(@RequestParam("name") String name) {
+        // 根据名称模糊查询行政区划信息
         List<DtsRegion> dtsRegions = dtsRegionService.searchMajorByName(name);
+        // 构建行政区划的树状结构
         List<DtsRegion> dtsRegion = dtsRegionService.buildDeptTree(dtsRegions);
+        // 返回构建好的树状结构列表
         return AjaxResult.success(dtsRegion);
     }
 

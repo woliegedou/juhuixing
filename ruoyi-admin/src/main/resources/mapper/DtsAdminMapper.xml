@@ -24,40 +24,19 @@
     <update id="updateadmin">
         update dts_admin
         <set>
-            <if test="username != null">
-                username = #{username},
-            </if>
-            <if test="password != null">
-                password = #{password},
-            </if>
-            <if test="addTime != null">
-                add_time = #{addTime},
-            </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime},
-            </if>
-            <if test="deleted != null">
-                deleted = #{deleted},
-            </if>
-            <if test="avatar != null">
-                avatar = #{avatar},
-            </if>
-            <if test="roleIds != null">
-                role_ids = #{roleIds},
-            </if>
-            <if test="lastLoginIp != null">
-                last_login_ip = #{lastLoginIp},
-            </if>
-            <if test="lastLoginTime != null">
-                last_login_time = #{lastLoginTime},
-            </if>
-            <if test="tel != null">
-                tel = #{tel},
-            </if>
-            <if test="mail != null">
-                mail = #{mail},
-            </if>
+            <if test="username != null">username = #{username},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="addTime != null">add_time = #{addTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="deleted != null">deleted = #{deleted},</if>
+            <if test="avatar != null">avatar = #{avatar},</if>
+            <if test="roleIds != null">role_ids = #{roleIds},</if>
+            <if test="lastLoginIp != null">last_login_ip = #{lastLoginIp},</if>
+            <if test="lastLoginTime != null">last_login_time = #{lastLoginTime},</if>
+            <if test="tel != null">tel = #{tel},</if>
+            <if test="mail != null">mail = #{mail},</if>
         </set>
+        where id = #{id}
     </update>
     <delete id="deleteById">
         delete
@@ -96,23 +75,20 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
     <select id="getAdminByNameFuzzy" resultType="com.ruoyi.program.entity.DtsAdmin">
-        SELECT
-            id,
-            username,
-            password,
-            add_time,
-            update_time,
-            deleted,
-            avatar,
-            role_ids,
-            last_login_ip,
-            last_login_time,
-            tel,
-            mail
-        FROM
-            dts_admin
-        WHERE
-            username LIKE CONCAT('%', #{username, jdbcType=VARCHAR}, '%')
+        SELECT id,
+               username,
+               password,
+               add_time,
+               update_time,
+               deleted,
+               avatar,
+               role_ids,
+               last_login_ip,
+               last_login_time,
+               tel,
+               mail
+        FROM dts_admin
+        WHERE username LIKE CONCAT('%', #{username, jdbcType=VARCHAR}, '%')
     </select>
 
 

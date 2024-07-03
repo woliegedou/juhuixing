@@ -59,6 +59,11 @@
             </if>
         </set>
     </update>
+    <delete id="deleteById">
+        delete
+        from dts_admin
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
     <select id="selectadmin" resultMap="BaseResultMap">
         select id,
                username,
@@ -89,6 +94,25 @@
                mail
         from dts_admin
         where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="getAdminByNameFuzzy" resultType="com.ruoyi.program.entity.DtsAdmin">
+        SELECT
+            id,
+            username,
+            password,
+            add_time,
+            update_time,
+            deleted,
+            avatar,
+            role_ids,
+            last_login_ip,
+            last_login_time,
+            tel,
+            mail
+        FROM
+            dts_admin
+        WHERE
+            username LIKE CONCAT('%', #{username, jdbcType=VARCHAR}, '%')
     </select>
 
 

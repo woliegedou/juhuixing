@@ -140,6 +140,25 @@ public class DtsAdminServiceimpl implements DtsAdminService {
     }
 
     /**
+     * 根据ID删除记录。
+     * <p>
+     * 本方法通过调用dtsAdminMapper的DeleteById方法，尝试删除数据库中对应ID的记录。
+     * 删除操作的成功与否通过返回值来判断，如果删除的记录数大于0，则表示删除成功。
+     *
+     * @param id 需要删除的记录的ID。
+     * @return 如果删除成功（即删除的记录数大于0），返回true；否则返回false。
+     */
+    @Override
+    public boolean deleteById(Integer id) {
+        return dtsAdminMapper.deleteById(id) > 0;
+    }
+
+    @Override
+    public List<DtsAdmin> getAdminByNameFuzzy(String username) {
+        return dtsAdminMapper.getAdminByNameFuzzy(username);
+    }
+
+    /**
      * 获取文件名的扩展名。
      * 该方法通过查找文件名中最后一个"."的位置，然后提取出点后的部分作为文件的扩展名。
      * 如果文件名中没有"."，则此方法返回空字符串。

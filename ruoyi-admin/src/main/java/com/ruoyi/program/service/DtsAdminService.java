@@ -31,4 +31,14 @@ public interface DtsAdminService {
      * 上传头像
      */
     String uploadDtsAdmin(MultipartFile file);
+
+    /**
+     * 删除管理员
+     */
+    boolean deleteById(Integer id);
+
+    /**
+     * 根据管理名称查询管理员
+     */
+    List<DtsAdmin> getAdminByNameFuzzy(String username);
 }

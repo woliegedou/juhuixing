@@ -1,6 +1,9 @@
 package com.ruoyi.program.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.program.entity.DtsAddress;
 import com.ruoyi.program.entity.DtsAdmin;
 import com.ruoyi.program.service.DtsAdminService;
 import com.ruoyi.program.util.AjaxResult;
@@ -18,7 +21,9 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Api(tags = "管理员表")
@@ -128,6 +133,24 @@ public class DtsAdminController {
         }
     }
 
+    /**
+     * 修改管理员信息并上传头像。
+     * 该接口用于更新管理员的各项信息，包括头像、密码、用户名等，并支持批量角色分配。
+     * 使用POST请求方法，通过@RequestParam注解从请求中获取参数。
+     *
+     * @param id            管理员ID，用于定位要更新的管理员信息。
+     * @param avatar        管理员头像，以MultipartFile形式接收，可为空。如果提供，将上传新头像。
+     * @param password      新密码，可选。如果提供，将加密后更新密码。
+     * @param username      新用户名，可选。如果提供，将更新用户名。
+     * @param lastLoginIp   最后登录IP，可选。如果提供，将更新最后登录IP。
+     * @param lastLoginTime 最后登录时间，可选。如果提供，将更新最后登录时间。
+     * @param roleIds       角色ID字符串，可选。如果提供，将更新管理员的角色分配。
+     * @param desc          管理员描述，可选。如果提供，将更新管理员描述。
+     * @param tel           联系电话，可选。如果提供，将更新管理员的联系电话。
+     * @param mail          电子邮件，可选。如果提供，将更新管理员的电子邮件。
+     * @return ResponseEntity对象，包含更新结果信息。成功时返回HTTP状态200和更新成功的消息；管理员不存在时返回HTTP状态404和相应错误消息；更新失败时返回HTTP状态500和错误详情。
+     * @throws IOException 如果文件上传过程中发生错误。
+     */
     @ApiOperation(value = "修改管理员信息并上传头像")
     @PostMapping("/updateadmin")
     public ResponseEntity<?> updateAdminWithAvatar(
@@ -143,16 +166,21 @@ public class DtsAdminController {
             @RequestParam(value = "mail", required = false) String mail) throws IOException {
 
         try {
+            // 根据ID查询管理员是否存在
             DtsAdmin adminById = dtsAdminService.getAdminById(id);
             if (adminById == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("管理员不存在");
             }
+            // 如果上传了头像，则进行头像上传并更新管理员头像信息
             if (avatar != null && !avatar.isEmpty()) {
                 String uploadDtsAdmin = dtsAdminService.uploadDtsAdmin(avatar);
                 adminById.setAvatar(uploadDtsAdmin);
             }
+            // 更新管理员信息，包括密码（如果提供了新密码）、用户名、最后登录信息等
             adminById.setUsername(username);
-            adminById.setPassword(passwordEncoder.encode(password));
+            if (password != null && !password.isEmpty()) {
+                adminById.setPassword(passwordEncoder.encode(password));
+            }
             adminById.setLastLoginIp(lastLoginIp);
             adminById.setLastLoginTime(new Date());
             adminById.setRoleIds(roleIds);
@@ -160,14 +188,103 @@ public class DtsAdminController {
             adminById.setTel(tel);
             adminById.setMail(mail);
 
+            // 调用服务层方法更新管理员信息
             dtsAdminService.updateadmin(adminById);
 
+            // 返回HTTP状态200和成功更新的消息
             return ResponseEntity.ok("管理员信息更新成功");
 
         } catch (Exception e) {
+            // 如果更新过程中发生异常，返回HTTP状态500和异常信息
             // 返回更新失败的响应
             // 返回更新失败信息
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("更新失败: " + e.getMessage());
         }
+    }
+
+    /**
+     * 删除管理员。
+     * 通过接收管理员信息，调用服务层方法进行管理员删除操作。
+     * 如果删除成功，返回HTTP状态200和成功消息；
+     * 如果删除失败（管理员不存在），返回HTTP状态404和错误消息。
+     *
+     * @param record 包含待删除管理员信息的请求体。
+     * @return 删除操作的结果，以ResponseEntity封装，包含HTTP状态码和响应消息。
+     */
+    @ApiOperation(value = "删除管理员")
+    @PostMapping("/deleteadmin")
+    public ResponseEntity<String> deleteAdmin(@RequestBody DtsAdmin record) {
+        // 调用服务层方法，尝试根据管理员ID删除管理员
+        // 调用服务层方法删除管理员
+        boolean deleteById = dtsAdminService.deleteById(record.getId());
+        if (deleteById) {
+            // 如果删除成功，返回HTTP状态200和成功删除的消息
+            // 返回HTTP状态200和成功删除的消息
+            return ResponseEntity.ok("管理员删除成功");
+        } else {
+            // 如果删除失败（管理员不存在），返回HTTP状态404和错误消息
+            // 返回HTTP状态404和找不到管理员的消息
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("找不到管理员");
+        }
+    }
+
+    /**
+     * 通过用户名进行模糊查询管理员信息。
+     * <p>
+     * 该接口使用GET方法，并通过@RequestParam注解接收可选的username参数。
+     * 如果提供了username参数，则查询与之匹配的管理员；如果未提供，则返回所有管理员。
+     * 使用@ApiOperation注解来说明该接口的作用和API文档中显示的名称。
+     * 使用@GetMapping注解来指定该方法处理GET请求的URL路径。
+     *
+     * @param username 可选参数，用于模糊查询管理员用户名。
+     * @return 返回包含管理员列表的ResponseEntity对象，HTTP状态码为200。
+     */
+    @ApiOperation(value = "模糊查询管理员")
+    @GetMapping("/selectadminByLike")
+    public ResponseEntity<List<DtsAdmin>> selectadminByLike(@RequestParam(required = false) String username) {
+        // 调用服务层方法，根据用户名模糊查询管理员
+        List<DtsAdmin> adminByName = dtsAdminService.getAdminByNameFuzzy(username);
+        // 返回HTTP状态200和查询结果
+        return ResponseEntity.ok(adminByName);
+    }
+
+    /**
+     * 分页查询管理员信息。
+     * 使用GET方法，通过管理员对象条件和分页参数进行查询。
+     * 返回包含管理员列表和总条数的Map对象。
+     *
+     * @param dtsAdmin 管理员对象，包含查询条件。
+     * @param pageNum  当前页码，默认为1。
+     * @param pageSize 每页条数，默认为10。
+     * @return Map对象，包含管理员列表（list）和总条数（total）。
+     */
+    @ApiOperation(value = "分页查询管理员")
+    @GetMapping("/selectadminByPage")
+    public Map<String, Object> selectadminByPage(DtsAdmin dtsAdmin,
+                                                 @RequestParam(defaultValue = "1") Integer pageNum,
+                                                 @RequestParam(defaultValue = "10") Integer pageSize) {
+        // 初始化返回数据的Map对象
+        // 初始化返回的数据Map
+        HashMap<String, Object> map = new HashMap<>();
+
+        // 开始分页查询，通过PageHelper插件实现
+        // 开始分页查询，这里使用了PageHelper插件来实现分页
+        PageHelper.startPage(pageNum, pageSize);
+
+        // 调用服务层方法查询管理员列表
+        // 调用服务层方法查询广告信息，根据dtsAd中的条件进行查询
+        List<DtsAdmin> list = dtsAdminService.selectadmin();
+
+        // 使用PageInfo对查询结果进行包装，获取分页信息
+        // 使用PageInfo对查询结果进行包装，获取分页信息
+        PageInfo<DtsAdmin> info = new PageInfo<>(list);
+
+        // 将总条数和管理员列表分别放入Map对象中
+        // 将查询结果的总条数和广告列表分别放入返回的Map中
+        map.put("data", info.getTotal());
+        map.put("list", list);
+
+        return map;
+
     }
 }

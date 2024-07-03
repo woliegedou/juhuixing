@@ -28,5 +28,15 @@ public interface DtsAdminMapper {
      */
     DtsAdmin getAdminById(Integer id);
 
+    /**
+     * 根据id删除管理员
+     */
+    int deleteById(Integer id);
+
+    /**
+     * 根据管理名称查询管理员
+     */
+    List<DtsAdmin> getAdminByNameFuzzy(String username);
+
 
 }

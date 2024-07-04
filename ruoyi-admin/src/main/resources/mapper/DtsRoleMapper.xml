@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ruoyi.program.mapper.DtsRoleMapper">
+    <resultMap id="BaseResultMap" type="com.ruoyi.program.entity.DtsRole">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="desc" property="desc" jdbcType="VARCHAR"/>
+        <result column="enabled" property="enabled" jdbcType="INTEGER"/>
+        <result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="deleted" property="deleted" jdbcType="BIT"/>
+    </resultMap>
+    <insert id="insertRole">
+        insert into dts_role (name, `desc`,
+                              enabled, add_time, update_time,
+                              deleted)
+        values (#{name,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR},
+                #{enabled,jdbcType=INTEGER}, #{addTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
+                #{deleted,jdbcType=BIT})
+    </insert>
+    <update id="updateRole">
+        update dts_role
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="desc != null">
+                `desc` = #{desc,jdbcType=VARCHAR},
+            </if>
+            <if test="enabled != null">
+                enabled = #{enabled,jdbcType=INTEGER},
+            </if>
+            <if test="addTime != null">
+                add_time = #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <delete id="deleteRole">
+        delete
+        from dts_role
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <select id="selectRoleList" resultMap="BaseResultMap">
+        select id, name, `desc`, enabled, add_time, update_time, deleted
+        from dts_role
+    </select>
+    <select id="selectRoleListFuzzyQuery" resultMap="BaseResultMap">
+        select id, name, `desc`, enabled, add_time, update_time, deleted
+        from dts_role
+        where name like concat('%', #{name}, '%')
+    </select>
+</mapper>

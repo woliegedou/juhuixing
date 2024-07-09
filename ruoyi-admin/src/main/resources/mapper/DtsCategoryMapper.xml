@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ruoyi.program.mapper.DtsCategoryMapper">
+    <resultMap id="BaseResultMap" type="com.ruoyi.program.entity.DtsCategory">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="keywords" property="keywords" jdbcType="VARCHAR"/>
+        <result column="pid" property="pid" jdbcType="INTEGER"/>
+        <result column="icon_url" property="iconUrl" jdbcType="VARCHAR"/>
+        <result column="pic_url" property="picUrl" jdbcType="VARCHAR"/>
+        <result column="level" property="level" jdbcType="VARCHAR"/>
+        <result column="sort_order" property="sortOrder" jdbcType="TINYINT"/>
+        <result column="add_time" property="addTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="deleted" property="deleted" jdbcType="BIT"/>
+    </resultMap>
+    <!-- 插入语句 -->
+    <insert id="insertDtsCategory" parameterType="com.ruoyi.program.entity.DtsCategory" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO dts_category (name, keywords, `desc`, pid, icon_url, pic_url, level, sort_order, add_time,
+                                  update_time,
+                                  deleted)
+        VALUES (#{name}, #{keywords}, #{desc}, #{pid}, #{iconUrl}, #{picUrl}, #{level}, #{sortOrder}, NOW(), NOW(),
+                false)
+    </insert>
+    <update id="updateDtsCategory">
+        UPDATE dts_category
+        SET
+        <if test="name != null">name = #{name},</if>
+        <if test="keywords != null">keywords = #{keywords},</if>
+        <if test="pid != null">pid = #{pid},</if>
+        <if test="iconUrl != null">icon_url = #{iconUrl},</if>
+        <if test="picUrl != null">pic_url = #{picUrl},</if>
+        <if test="level != null">level = #{level},</if>
+        <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+        <if test="updateTime != null">update_time = #{updateTime},</if>
+        <if test="deleted != null">deleted = #{deleted},</if>
+        <if test="desc != null">`desc` = #{desc},</if>
+        <if test="addTime != null">add_time = #{addTime}</if>
+        WHERE
+        id = #{id}
+    </update>
+    <delete id="deleteDtsCategory">
+        DELETE
+        FROM dts_category
+        WHERE id = #{id}
+    </delete>
+    <select id="selectDtsCategoryid" resultMap="BaseResultMap">
+        SELECT id,
+               name,
+               keywords,
+               pid,
+               icon_url,
+               pic_url,
+               level,
+               sort_order,
+               add_time,
+               update_time,
+               deleted
+        FROM dts_category
+        WHERE id = #{id}
+    </select>
+    <select id="selectDtsCategoryall" resultMap="BaseResultMap">
+        SELECT id,
+               name,
+               keywords,
+               pid,
+               icon_url,
+               pic_url,
+               level,
+               sort_order,
+               add_time,
+               update_time,
+               deleted
+        FROM dts_category
+    </select>
+    <select id="selectDtsCategoryByNameLike" resultMap="BaseResultMap">
+        SELECT id,
+               name,
+               keywords,
+               pid,
+               icon_url,
+               pic_url,
+               level,
+               sort_order,
+               add_time,
+               update_time,
+               deleted
+        FROM dts_category
+        WHERE name LIKE CONCAT('%', #{name}, '%')
+    </select>
+    <select id="DtsRegionid" resultMap="BaseResultMap">
+        SELECT id,
+               name,
+               keywords,
+               pid,
+               icon_url,
+               pic_url,
+               level,
+               sort_order,
+               add_time,
+               update_time,
+               deleted
+        FROM dts_category
+    </select>
+
+
+</mapper>

@@ -38,10 +38,10 @@ public class DtsRoleController {
     public ResponseEntity<String> insertRole(@RequestBody DtsRole dtsRole) {
         // 设置角色的添加时间为当前时间
         dtsRole.setAddTime(new Date());
-        // 调用dtsRoleMapper的insertRole方法，插入新角色信息
-        // 调用dtsRoleMapper的insertRole方法，插入角色信息到数据库
-        int insertRole = dtsRoleService.insertRole(dtsRole);
-        // 返回响应，告知插入角色表成功
+            // 调用dtsRoleMapper的insertRole方法，插入新角色信息
+            // 调用dtsRoleMapper的insertRole方法，插入角色信息到数据库
+            int insertRole = dtsRoleService.insertRole(dtsRole);
+        // 返回响应，告知插入角色表成功   
         // 返回响应实体，告知调用方角色插入操作成功
         return ResponseEntity.ok("插入角色表成功");
     }

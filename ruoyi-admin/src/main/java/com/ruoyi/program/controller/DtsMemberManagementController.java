@@ -215,7 +215,7 @@ public class DtsMemberManagementController {
         // 使用ExcelUtil工具类导出查询结果为Excel文件
         // 使用自定义的ExcelUtil工具类导出Excel
         ExcelUtil<DtsMemberManagement> util = new ExcelUtil<>(DtsMemberManagement.class);
-        util.exportExcel(response, list, "会员信息", "xlsx"); // 指定后缀为xlsx
+        util.exportExcel(response, list, "会员信息", "会员信息"); // 指定后缀为xlsx
 
         // 如果ExcelUtil类中没有指定后缀的方法，可以直接在方法中进行处理
         // util.exportExcel(response, list, "会员信息.xlsx");

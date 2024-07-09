@@ -2,6 +2,7 @@ package com.ruoyi.program.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.program.entity.DtsMemberManagement;
 import com.ruoyi.program.entity.DtsRegion;
 import com.ruoyi.program.service.DtsMemberManagementService;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
@@ -116,7 +118,7 @@ public class DtsMemberManagementController {
 
     @ApiOperation(value = "分页查询会员信息")
     @GetMapping("/selectDtsMemberManagementByPage")
-    public Map<String, Object> selectDtsMemberManagementByPage(DtsMemberManagement dtsMemberManagement,@RequestParam(defaultValue = "1") Integer pageNum,
+    public Map<String, Object> selectDtsMemberManagementByPage(DtsMemberManagement dtsMemberManagement, @RequestParam(defaultValue = "1") Integer pageNum,
                                                                @RequestParam(defaultValue = "10") Integer pageSize) {
         // 初始化返回的数据Map
         HashMap<String, Object> map = new HashMap<>();
@@ -133,5 +135,18 @@ public class DtsMemberManagementController {
         map.put("dtsRegions", dtsRegions);
         // 返回包含分页信息和行政区划列表的Map
         return map;
+    }
+
+    @ApiOperation(value = "导出数据")
+    @GetMapping("/export")
+    public void export(HttpServletResponse response, DtsMemberManagement dtsMemberManagement) {
+        List<DtsMemberManagement> list = dtsMemberManagementService.selectDtsMemberManagementByType(dtsMemberManagement);
+
+        // 使用自定义的ExcelUtil工具类导出Excel
+        ExcelUtil<DtsMemberManagement> util = new ExcelUtil<>(DtsMemberManagement.class);
+        util.exportExcel(response, list, "会员信息", "xlsx"); // 指定后缀为xlsx
+
+        // 如果ExcelUtil类中没有指定后缀的方法，可以直接在方法中进行处理
+        // util.exportExcel(response, list, "会员信息.xlsx");
     }
 }

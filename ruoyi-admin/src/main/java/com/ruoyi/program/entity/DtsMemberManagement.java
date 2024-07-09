@@ -1,6 +1,7 @@
 package com.ruoyi.program.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ruoyi.common.annotation.Excel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -33,32 +34,38 @@ public class DtsMemberManagement implements Serializable {
     @ApiModelProperty(value = "用户主键", required = true)
     @Id
     @NonNull
+    @Excel(name = "用户主键")
     private Long id;
     /**
      * 用户名
      */
+    @Excel(name = "用户名")
     @ApiModelProperty(value = "用户名", required = true)
     @NotBlank
     private String username;
     /**
      * 手机号
      */
+    @Excel(name = "手机号")
     @ApiModelProperty(value = "手机号", required = true)
     private String number;
     /**
      * 性别
      */
+    @Excel(name = "性别", readConverterExp = "0=男,1=女,2=未知")
     @ApiModelProperty(value = "性别", required = true)
     private String gender;
     /**
      * 用户等级
      */
+    @Excel(name = "用户等级", readConverterExp = "0=普通会员,1=代理")
     @ApiModelProperty(value = "用户等级", required = true)
     @NotBlank
     private String userlevel;
     /**
      * 状态（0可用,1代理申请）
      */
+    @Excel(name = "状态", readConverterExp = "0=可用,1=代理申请")
     @ApiModelProperty(value = "状态（0可用,1代理申请）", required = true)
     private Long state;
     /**
@@ -69,6 +76,7 @@ public class DtsMemberManagement implements Serializable {
     /**
      * 创建时间
      */
+    @Excel(name = "创建时间")
     @ApiModelProperty(value = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createdTime;
@@ -80,6 +88,7 @@ public class DtsMemberManagement implements Serializable {
     /**
      * 修改时间
      */
+    @Excel(name = "修改时间")
     @ApiModelProperty(value = "修改时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date updatedTime;

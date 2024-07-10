@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ruoyi.program.mapper.DtsCommissionManagementMapper">
+    <resultMap id="BaseResultMap" type="com.ruoyi.program.entity.DtsCommissionManagement">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="application_flow" property="applicationFlow" jdbcType="BIGINT"/>
+        <result column="types" property="types" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="withdrawal" property="withdrawal" jdbcType="DOUBLE"/>
+        <result column="amount_withdrawn" property="amountWithdrawn" jdbcType="DOUBLE"/>
+        <result column="approval_status" property="approvalStatus" jdbcType="VARCHAR"/>
+        <result column="Approval_remarks" property="approvalRemarks" jdbcType="VARCHAR"/>
+        <result column="created_by" property="createdBy" jdbcType="VARCHAR"/>
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+        <result column="updated_by" property="updatedBy" jdbcType="VARCHAR"/>
+        <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
+        <result column="is_delete" property="isDelete" jdbcType="BIGINT"/>
+        <association property="user" javaType="com.ruoyi.program.entity.DtsUser">
+            <id column="id" property="id" jdbcType="BIGINT"/>
+            <result column="username" property="username" jdbcType="VARCHAR"/>
+            <!-- 其他DtsUser的属性 -->
+        </association>
+    </resultMap>
+    <insert id="insertDtsCommissionManagement">
+        INSERT INTO dts_commission_management (application_flow,
+                                               types,
+                                               user_id,
+                                               phone,
+                                               withdrawal,
+                                               amount_withdrawn,
+                                               approval_status,
+                                               Approval_remarks,
+                                               created_by,
+                                               created_time,
+                                               updated_by,
+                                               updated_time,
+                                               is_delete)
+        VALUES (#{applicationFlow,jdbcType=BIGINT},
+                #{types,jdbcType=VARCHAR},
+                #{userId,jdbcType=BIGINT},
+                #{phone,jdbcType=BIGINT},
+                #{withdrawal,jdbcType=DOUBLE},
+                #{amountWithdrawn,jdbcType=DOUBLE},
+                #{approvalStatus,jdbcType=VARCHAR},
+                #{approvalRemarks,jdbcType=VARCHAR},
+                #{createdBy,jdbcType=VARCHAR},
+                #{createdTime,jdbcType=TIMESTAMP},
+                #{updatedBy,jdbcType=VARCHAR},
+                #{updatedTime,jdbcType=TIMESTAMP},
+                #{isDelete,jdbcType=BIGINT})
+    </insert>
+    <update id="updateDtsCommissionManagement" parameterType="com.ruoyi.program.entity.DtsCommissionManagement">
+        UPDATE dts_commission_management
+        <set>
+            <if test="applicationFlow != null">
+                application_flow = #{applicationFlow,jdbcType=BIGINT},
+            </if>
+            <if test="types != null">
+                types = #{types,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=BIGINT},
+            </if>
+            <if test="withdrawal != null">
+                withdrawal = #{withdrawal,jdbcType=DOUBLE},
+            </if>
+            <if test="amountWithdrawn != null">
+                amount_withdrawn = #{amountWithdrawn,jdbcType=DOUBLE},
+            </if>
+            <if test="approvalStatus != null">
+                approval_status = #{approvalStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="approvalRemarks != null">
+                Approval_remarks = #{approvalRemarks,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null">
+                updated_by = #{updatedBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete,jdbcType=BIGINT},
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectDtsCommissionManagementList" resultMap="BaseResultMap">
+        SELECT cm.id,
+               cm.application_flow,
+               cm.types,
+               cm.user_id,
+               cm.phone,
+               cm.withdrawal,
+               cm.amount_withdrawn,
+               cm.approval_status,
+               cm.Approval_remarks,
+               cm.created_by,
+               cm.created_time,
+               cm.updated_by,
+               cm.updated_time,
+               cm.is_delete,
+               u.username
+        FROM dts_commission_management cm
+                 LEFT JOIN
+             dts_user u ON cm.user_id = u.id
+    </select>
+    <select id="selectDtsCommissionManagemen" resultMap="BaseResultMap">
+        SELECT
+        cm.id,
+        cm.application_flow,
+        cm.types,
+        cm.user_id,
+        cm.phone,
+        cm.withdrawal,
+        cm.amount_withdrawn,
+        cm.approval_status,
+        cm.Approval_remarks,
+        cm.created_by,
+        cm.created_time,
+        cm.updated_by,
+        cm.updated_time,
+        cm.is_delete,
+        u.username
+        FROM
+        dts_commission_management cm
+        LEFT JOIN
+        dts_user u ON cm.user_id = u.id
+        <where>
+            <!-- 添加模糊查询条件 -->
+            <if test="user != null and user.username != null and user.username != ''">
+                AND u.username LIKE concat('%', #{user.username}, '%')
+            </if>
+            <if test="phone != null and phone != ''">
+                AND cm.phone LIKE concat('%', #{phone}, '%')
+            </if>
+            <if test="approvalStatus != null and approvalStatus != ''">
+                AND cm.approval_status LIKE concat('%', #{approvalStatus}, '%')
+            </if>
+
+            <!-- 原有的精确查询条件保持不变 -->
+            <if test="id != null">
+                AND cm.id = #{id}
+            </if>
+            <if test="applicationFlow != null">
+                AND cm.application_flow = #{applicationFlow}
+            </if>
+            <if test="types != null and types != ''">
+                AND cm.types = #{types}
+            </if>
+            <if test="userId != null">
+                AND cm.user_id = #{userId}
+            </if>
+            <!-- 其他精确查询条件 -->
+        </where>
+    </select>
+</mapper>

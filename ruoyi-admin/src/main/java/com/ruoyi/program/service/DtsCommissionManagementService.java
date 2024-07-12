@@ -36,6 +36,6 @@ public interface DtsCommissionManagementService {
      * @param dtsCommissionManagement
      * @return
      */
-    List<DtsCommissionManagement> selectDtsCommissionManagement(DtsCommissionManagement dtsCommissionManagement);
+    List<DtsCommissionManagement> selectDtsCommissionManagement(DtsCommissionManagement dtsCommissionManagement );
 
 }

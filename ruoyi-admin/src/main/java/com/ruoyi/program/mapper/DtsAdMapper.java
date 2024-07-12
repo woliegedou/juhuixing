@@ -1,5 +1,6 @@
 package com.ruoyi.program.mapper;
 
+import com.ruoyi.program.entity.DTO.DtsAdDTO;
 import com.ruoyi.program.entity.DtsAd;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,7 +15,7 @@ public interface DtsAdMapper {
      * @param id 主键
      * @return 实例对象
      */
-    DtsAd queryById(Integer id);
+    DtsAdDTO queryById(Integer id);
 
     /**
      * 查询指定行数据
@@ -35,10 +36,10 @@ public interface DtsAdMapper {
     /**
      * 新增数据
      *
-     * @param dtsAd 实例对象
+     * @param dtsAdDTO 实例对象
      * @return 影响行数
      */
-    int insert(DtsAd dtsAd);
+    int insert(DtsAdDTO dtsAdDTO);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）
@@ -63,7 +64,7 @@ public interface DtsAdMapper {
      * @param dtsAd 实例对象
      * @return 影响行数
      */
-    int update(DtsAd dtsAd);
+    int update(DtsAdDTO dtsAd);
 
     /**
      * 通过主键删除数据

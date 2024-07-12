@@ -1,5 +1,6 @@
 package com.ruoyi.program.service;
 
+import com.ruoyi.program.entity.DTO.DtsAdDTO;
 import com.ruoyi.program.entity.DtsAd;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,7 +14,7 @@ public interface DtsAdService {
      * @param id 主键
      * @return 实例对象
      */
-    DtsAd queryById(Integer id);
+    DtsAdDTO queryById(Integer id);
 
     /**
      * 查询指定行数据
@@ -34,10 +35,10 @@ public interface DtsAdService {
     /**
      * 新增数据
      *
-     * @param dtsAd 实例对象
+     * @param dtsAdDTO 实例对象
      * @return 影响行数
      */
-    int insert(DtsAd dtsAd);
+    int insert(DtsAdDTO dtsAdDTO);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）
@@ -59,10 +60,10 @@ public interface DtsAdService {
     /**
      * 修改数据
      *
-     * @param dtsAd 实例对象
+     * @param dtsAdDTO 实例对象
      * @return 影响行数
      */
-    int update(DtsAd dtsAd);
+    int update(DtsAdDTO dtsAdDTO);
 
     /**
      * 通过主键删除数据

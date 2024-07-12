@@ -138,9 +138,6 @@
             <if test="startTime != null">start_time,</if>
             <if test="endTime != null">end_time,</if>
             <if test="enabled != null">enabled,</if>
-            <if test="addTime != null">add_time,</if>
-            <if test="updateTime != null">update_time,</if>
-            <if test="deleted != null">deleted,</if>
         </trim>
         values
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -152,9 +149,6 @@
             <if test="startTime != null">#{startTime},</if>
             <if test="endTime != null">#{endTime},</if>
             <if test="enabled != null">#{enabled},</if>
-            <if test="addTime != null">#{addTime},</if>
-            <if test="updateTime != null">#{updateTime},</if>
-            <if test="deleted != null">#{deleted},</if>
         </trim>
     </insert>
 
@@ -267,15 +261,6 @@
             </if>
             <if test="enabled != null">
                 enabled = #{enabled},
-            </if>
-            <if test="addTime != null">
-                add_time = #{addTime},
-            </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime},
-            </if>
-            <if test="deleted != null">
-                deleted = #{deleted},
             </if>
         </set>
         where id = #{id}

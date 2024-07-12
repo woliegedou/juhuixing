@@ -5,6 +5,7 @@ import com.qiniu.storage.Configuration;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import com.ruoyi.common.utils.uuid.UUID;
+import com.ruoyi.program.entity.DTO.DtsAdDTO;
 import com.ruoyi.program.entity.DtsAd;
 import com.ruoyi.program.mapper.DtsAdMapper;
 import com.ruoyi.program.service.DtsAdService;
@@ -38,7 +39,7 @@ public class DtsAdServiceimpl implements DtsAdService {
 
 
     @Override
-    public DtsAd queryById(Integer id) {
+    public DtsAdDTO queryById(Integer id) {
         return dtsAdMapper.queryById(id);
     }
 
@@ -53,7 +54,7 @@ public class DtsAdServiceimpl implements DtsAdService {
     }
 
     @Override
-    public int insert(DtsAd dtsAd) {
+    public int insert(DtsAdDTO dtsAd) {
         return dtsAdMapper.insert(dtsAd);
     }
 
@@ -68,8 +69,8 @@ public class DtsAdServiceimpl implements DtsAdService {
     }
 
     @Override
-    public int update(DtsAd dtsAd) {
-        return dtsAdMapper.update(dtsAd);
+    public int update(DtsAdDTO dtsAdDTO) {
+        return dtsAdMapper.update(dtsAdDTO);
     }
 
     @Override

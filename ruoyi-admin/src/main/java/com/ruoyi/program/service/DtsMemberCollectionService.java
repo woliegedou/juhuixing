@@ -1,12 +1,11 @@
-package com.ruoyi.program.mapper;
+package com.ruoyi.program.service;
 
 import com.ruoyi.program.entity.DtsMemberCollection;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-@Mapper
-public interface DtsMemberCollectionMapper {
+public interface DtsMemberCollectionService {
+
     /**
      * 插入会员收藏
      *

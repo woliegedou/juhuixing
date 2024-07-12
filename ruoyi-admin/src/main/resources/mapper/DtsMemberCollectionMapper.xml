@@ -11,7 +11,119 @@
         <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
         <result column="is_delete" property="isDelete" jdbcType="BIGINT"/>
     </resultMap>
-    <insert id="insertDtsMemberCollection"></insert>
-    <update id="updateMemberCollection"></update>
-    <select id="selectDtsMemberCollection" resultType="com.ruoyi.program.entity.DtsMemberCollection"></select>
+    <insert id="insertDtsMemberCollection">
+        insert into dts_member_collection
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="commodityId != null">
+                commodity_id,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updatedBy != null">
+                updated_by,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="commodityId != null">
+                #{commodityId},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime},
+            </if>
+            <if test="updatedBy != null">
+                #{updatedBy},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateMemberCollection">
+        update dts_member_collection
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="commodityId != null">
+                commodity_id = #{commodityId},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime},
+            </if>
+            <if test="updatedBy != null">
+                updated_by = #{updatedBy},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete},
+            </if>
+        </set>
+    </update>
+    <select id="selectDtsMemberCollection" resultMap="BaseResultMap">
+        select id, user_id, commodity_id, created_by, created_time, updated_by, updated_time, is_delete
+        from dts_member_collection
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="userId != null">
+                and user_id like concat('%', #{userId}, '%')
+            </if>
+            <if test="commodityId != null">
+                and commodity_id like concat('%', #{commodityId}, '%')
+            </if>
+            <if test="createdBy != null">
+                and created_by = #{createdBy}
+            </if>
+            <if test="createdTime != null">
+                and created_time = #{createdTime}
+            </if>
+            <if test="updatedBy != null">
+                and updated_by = #{updatedBy}
+            </if>
+            <if test="updatedTime != null">
+                and updated_time = #{updatedTime}
+            </if>
+            <if test="isDelete != null">
+                and is_delete = #{isDelete}
+            </if>
+        </where>
+    </select>
 </mapper>

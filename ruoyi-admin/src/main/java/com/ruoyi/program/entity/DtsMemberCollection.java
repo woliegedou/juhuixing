@@ -59,7 +59,7 @@ public class DtsMemberCollection implements Serializable {
      * 创建时间
      */
     @ApiModelProperty(value = "创建时间")
-    @Excel(name = "创建时间", dateFormat = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "添加时间", dateFormat = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createdTime;
     /**

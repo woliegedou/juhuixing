@@ -3,15 +3,12 @@ package com.ruoyi.program.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ruoyi.common.utils.poi.ExcelUtil;
-import com.ruoyi.program.entity.DtsCategory;
 import com.ruoyi.program.entity.DtsMemberCollection;
-import com.ruoyi.program.entity.DtsMemberManagement;
+
 import com.ruoyi.program.service.DtsMemberCollectionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

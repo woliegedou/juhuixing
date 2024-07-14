@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ruoyi.program.mapper.DtsHistoricalSearchMapper">
+    <resultMap id="BaseResultMap" type="com.ruoyi.program.entity.DtsHistoricalSearch">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="user_id" property="userId" jdbcType="BIGINT"/>
+        <result column="keywords" property="keywords" jdbcType="VARCHAR"/>
+        <result column="created_by" property="createdBy" jdbcType="VARCHAR"/>
+        <result column="created_time" property="createdTime" jdbcType="TIMESTAMP"/>
+        <result column="updated_by" property="updatedBy" jdbcType="VARCHAR"/>
+        <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP"/>
+        <result column="is_delete" property="isDelete" jdbcType="BIGINT"/>
+    </resultMap>
+    <insert id="inserthistoricalsearch">
+        INSERT INTO dts_historical_search (
+        <trim prefix="" suffix="" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="keywords != null">keywords,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="updatedTime != null">updated_time,</if>
+            <if test="isDelete != null">is_delete,</if>
+        </trim>
+        )
+        VALUES (
+        <trim prefix="" suffix="" suffixOverrides=",">
+            <if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+            <if test="keywords != null">#{keywords,jdbcType=VARCHAR},</if>
+            <if test="createdBy != null">#{createdBy,jdbcType=VARCHAR},</if>
+            <if test="createdTime != null">#{createdTime,jdbcType=TIMESTAMP},</if>
+            <if test="updatedBy != null">#{updatedBy,jdbcType=VARCHAR},</if>
+            <if test="updatedTime != null">#{updatedTime,jdbcType=TIMESTAMP},</if>
+            <if test="isDelete != null">#{isDelete,jdbcType=BIGINT},</if>
+        </trim>
+        )
+    </insert>
+    <update id="updatehistoricalsearch">
+        UPDATE dts_historical_search
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=BIGINT},
+            </if>
+            <if test="keywords != null">
+                keywords = #{keywords,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+            </if>
+            <if test="updatedBy != null">
+                updated_by = #{updatedBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete,jdbcType=BIGINT}
+            </if>
+        </set>
+        <where>
+            <if test="id != null">
+                id = #{id,jdbcType=BIGINT}
+            </if>
+        </where>
+    </update>
+    <select id="selectDtsHistoricalSearch" resultMap="BaseResultMap">
+        select id, user_id, keywords, created_by, created_time, updated_by, updated_time, is_delete
+        from dts_historical_search
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="userId != null">
+                and user_id like concat('%', #{userId}, '%')
+            </if>
+            <if test="keywords != null">
+                and keywords like concat('%',#{keywords}, '%')
+            </if>
+            <if test="createdBy != null">
+                and created_by = #{createdBy}
+            </if>
+            <if test="createdTime != null">
+                and created_time = #{createdTime}
+            </if>
+            <if test="updatedBy != null">
+                and updated_by = #{updatedBy}
+            </if>
+            <if test="updatedTime != null">
+                and updated_time = #{updatedTime}
+            </if>
+            <if test="isDelete != null">
+                and is_delete = #{isDelete}
+            </if>
+        </where>
+    </select>
+</mapper>
